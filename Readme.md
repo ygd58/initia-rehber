@@ -1,4 +1,4 @@
-<h1 align="center"> INITIA
+<h1 align="center"> INITIA 
 
 
 ![image](https://github.com/molla202/pokemon/assets/91562185/c0d15ba5-72dd-4dcf-9766-3a4e72e42627)
@@ -7,10 +7,7 @@
 </h1>
 
 
- * [Topluluk kanalımız](https://t.me/corenodechat)<br>
- * [Topluluk Twitter](https://twitter.com/corenodeHQ)<br>
- * [Discord](https://discord.com/invite/0glabs)<br>
- * [Twitter](https://twitter.com/0G_labs)<br>
+
  * [Discord](https://discord.gg/initia)<br>
 
 ## FAUCET 
@@ -21,35 +18,34 @@ https://faucet.testnet.initia.xyz/
 
 https://scan.testnet.initia.xyz/initiation-1
 
-## 💻 Sistem Gereksinimleri
-| Bileşenler | Minimum Gereksinimler | 
+## 💻 System Requirements
+| Components | Minimum Requirements | 
 | ------------ | ------------ |
 | CPU |	4|
 | RAM	| 8+ GB |
 | Storage	| 400 GB SSD |
 | System	| Ubuntu 22.04 OR 20.04 |
 
-### 🚧Gerekli kurulumlar
+### 🚧Required installations
 ```
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc unzip -y
 ```
 
-### 🚧 Go kurulumu
-```
+🚧 Go setup
 cd $HOME
-VER="1.21.3"
+VER="1.21.3
 wget "https://golang.org/dl/go$VER.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf "go$VER.linux-amd64.tar.gz"
 rm "go$VER.linux-amd64.tar.gz"
-[ ! -f ~/.bash_profile ] && touch ~/.bash_profile
+[ ! ! -f ~/.bash_profile ] && touch ~/.bash_profile
 echo "export PATH=$PATH:/usr/local/go/bin:~/go/bin" >> ~/.bash_profile
 source $HOME/.bash_profile
-[ ! -d ~/go/bin ] && mkdir -p ~/go/bin
+[ ! ! -d ~/go/bin ] && mkdir -p ~/go/bin
 ```
 
-### 🚧Dosyaları çekelim
+### 🚧Let's pull the files
 ```
 git clone https://github.com/initia-labs/initia
 cd initia
@@ -66,11 +62,11 @@ mv /root/initia/build/initiad $HOME/.initia/cosmovisor/genesis/bin/
 sudo ln -s $HOME/.initia/cosmovisor/genesis $HOME/.initia/cosmovisor/current -f
 sudo ln -s $HOME/.initia/cosmovisor/current/bin/initiad /usr/local/bin/initiad -f
 ```
-### 🚧Cosmovisor indirelim
+### 🚧Download Cosmovisor
 ```
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 ```
-### 🚧Servis oluşturalım
+### 🚧Let's create a service
 ```
 sudo tee /etc/systemd/system/initiad.service > /dev/null << EOF
 [Unit]
@@ -112,7 +108,7 @@ rm ~/.initia/config/genesis.json
 curl -Ls https://raw.githubusercontent.com/molla202/pokemon/main/genesis.json > $HOME/.initia/config/genesis.json
 curl -Ls https://raw.githubusercontent.com/Core-Node-Team/Testnet-TR/main/Initia/addrbook.json > $HOME/.initia/config/addrbook.json
 ```
-### 🚧Port Ayarları
+### 🚧Port Settings
 ```
 echo "export N_PORT="15"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
@@ -150,12 +146,12 @@ sed -i -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.initia/config/app.toml
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.initia/config/app.toml
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"50\"/" $HOME/.initia/config/app.toml
 ```
-### 🚧Snap (opsiyonel)
+### 🚧Snap 
 ```
 initiad tendermint unsafe-reset-all --home $HOME/.initia
 curl -o - -L http://37.120.189.81/initia_testnet/initia_snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.initia
 ```
-### 🚧Başlatalım   
+### 🚧 Let's launch  
 ```
 sudo systemctl daemon-reload
 sudo systemctl restart initiad
@@ -164,29 +160,29 @@ sudo systemctl restart initiad
 ```
 sudo journalctl -u initiad.service -f --no-hostname -o cat
 ```
-### 🚧Cüzdan oluşturma
-NOT: cüzdan adınızı yazınız
+### 🚧Creating a wallet
+write your wallet name
 ```
 initiad keys add cuzdan-adini-yaz
 ```
-- Eski cüzdan import ederkene bele
+- Importing old wallet
 ```
 initiad keys add wallet --recover
 ```
 
-### 🚧Validator oluşturma
+### 🚧Validator creation
 
-NOT: cüzdan adını moniker adınızı yazınız
+ write your moniker name in the wallet name
 ```
 initiad tx mstaking create-validator \
   --amount=5000000uinit \
   --pubkey=$(initiad tendermint show-validator) \
-  --moniker=MONIKER-YAZ \
+  --moniker=MONIKER-NAME \
   --chain-id=initiation-1 \
   --commission-rate=0.05 \
   --commission-max-rate=0.10 \
   --commission-max-change-rate=0.01 \
-  --from=CUZDAN-ADI-YAZ \
+  --from=wallet name \
   --identity="" \
   --website="" \
   --details="" \
@@ -199,15 +195,15 @@ initiad tx mstaking create-validator \
 ### Edit validator
 ```
 initiad tx mstaking edit-validator \
---moniker "isim-yaz" \
---from cüzdan-adi-yaz \
+--moniker "name" \
+--from wallet \
 --gas-adjustment 1.4 \
 --gas auto \
 --gas-prices 0.15uinit \
 -y
 ```
-### Kendine delege
-NOT: 
+### Delegate to yourself
+
 ```bash
 initiad tx mstaking delegate $(initiad keys show wallet --bech val -a)  miktar000000uinit --from wallet --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
 ```
@@ -215,11 +211,11 @@ initiad tx mstaking delegate $(initiad keys show wallet --bech val -a)  miktar00
 ```
 initiad tx slashing unjail --from wallet --chain-id initiation-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
 ```
-### Ödülleri çek
+### reward check
 ```
 initiad tx distribution withdraw-rewards $(initiad keys show wallet --bech val -a) --commission --from wallet --chain-id initiation-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
 ```
-### Oy kullan
+### Vote
 ```
 initiad tx gov vote 75 yes --from wallet --chain-id initiation-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
 ```
