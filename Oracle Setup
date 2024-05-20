@@ -1,4 +1,4 @@
-### Dosyaları çekelim
+### Let's pull the files
 ```
 cd $HOME
 rm -rf slinky
@@ -12,7 +12,7 @@ make build
 ```
 mv build/slinky /usr/local/bin/
 ```
-### Servis olusturalım
+### Let's serve
 ```
 sudo tee /etc/systemd/system/slinkyd.service > /dev/null <<EOF
 [Unit]
@@ -30,17 +30,17 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 ```
-### Başlatalım
+### Let's start
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable slinkyd.service
 sudo systemctl restart slinkyd.service
 ```
-### Loglara bakmak isterseniz
+### If you want to look at the logs
 ```
 journalctl -fu slinkyd --no-hostname
 ```
-### Yapılandıralım
+### Configure
 ```
 nano /root/.initia/config/app.toml
 ```
