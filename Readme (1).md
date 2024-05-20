@@ -1,4 +1,4 @@
-<h1 align="center"> INITIA
+<h1 align="center"> INITIA REHBER node kurulumu
 
 
 ![image](https://github.com/molla202/pokemon/assets/91562185/c0d15ba5-72dd-4dcf-9766-3a4e72e42627)
@@ -21,7 +21,7 @@ https://faucet.testnet.initia.xyz/
 
 https://scan.testnet.initia.xyz/initiation-1
 
-## 💻 Sistem Gereksinimleri
+## 💻 Donanım Gereksinimleri
 | Bileşenler | Minimum Gereksinimler | 
 | ------------ | ------------ |
 | CPU |	6|
@@ -29,7 +29,7 @@ https://scan.testnet.initia.xyz/initiation-1
 | Storage	| 400 GB SSD |
 | System	| Ubuntu 22.04 OR 20.04 |
 
-### 🚧Gerekli kurulumlar
+### 🚧Gerekli kurulum
 ```
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc unzip -y
@@ -49,7 +49,7 @@ source $HOME/.bash_profile
 [ ! -d ~/go/bin ] && mkdir -p ~/go/bin
 ```
 
-### 🚧Dosyaları çekelim
+### 🚧Dosyaları çekme işlemi
 ```
 git clone https://github.com/initia-labs/initia
 cd initia
@@ -66,11 +66,11 @@ mv /root/initia/build/initiad $HOME/.initia/cosmovisor/genesis/bin/
 sudo ln -s $HOME/.initia/cosmovisor/genesis $HOME/.initia/cosmovisor/current -f
 sudo ln -s $HOME/.initia/cosmovisor/current/bin/initiad /usr/local/bin/initiad -f
 ```
-### 🚧Cosmovisor indirelim
+### 🚧Cosmovisor indirme
 ```
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 ```
-### 🚧Servis oluşturalım
+### 🚧Servis oluşturma
 ```
 sudo tee /etc/systemd/system/initiad.service > /dev/null << EOF
 [Unit]
@@ -112,7 +112,7 @@ rm ~/.initia/config/genesis.json
 curl -Ls https://raw.githubusercontent.com/molla202/pokemon/main/genesis.json > $HOME/.initia/config/genesis.json
 curl -Ls https://raw.githubusercontent.com/Core-Node-Team/Testnet-TR/main/Initia/addrbook.json > $HOME/.initia/config/addrbook.json
 ```
-### 🚧Port Ayarları
+### 🚧Port Ayarı
 ```
 echo "export N_PORT="15"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
@@ -164,7 +164,7 @@ sudo systemctl restart initiad
 ```
 sudo journalctl -u initiad.service -f --no-hostname -o cat
 ```
-### 🚧Cüzdan oluşturma
+### 🚧Cüzdan oluştur
 NOT: cüzdan adınızı yazınız
 ```
 initiad keys add cuzdan-adini-yaz
@@ -174,7 +174,7 @@ initiad keys add cuzdan-adini-yaz
 initiad keys add wallet --recover
 ```
 
-### 🚧Validator oluşturma
+### 🚧Validator oluştur
 
 NOT: cüzdan adını moniker adınızı yazınız
 ```
@@ -206,7 +206,7 @@ initiad tx mstaking edit-validator \
 --gas-prices 0.15uinit \
 -y
 ```
-### Kendine delege
+### Kendine delege etme işlemi
 NOT: 
 ```bash
 initiad tx mstaking delegate $(initiad keys show wallet --bech val -a)  miktar000000uinit --from wallet --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
@@ -215,11 +215,11 @@ initiad tx mstaking delegate $(initiad keys show wallet --bech val -a)  miktar00
 ```
 initiad tx slashing unjail --from wallet --chain-id initiation-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
 ```
-### Ödülleri çek
+### Ödülleri çekme işlemi
 ```
 initiad tx distribution withdraw-rewards $(initiad keys show wallet --bech val -a) --commission --from wallet --chain-id initiation-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
 ```
-### Oy kullan
+### Oy kullanma işlemi
 ```
 initiad tx gov vote 75 yes --from wallet --chain-id initiation-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.15uinit --node=http://localhost:15657 -y
 ```
