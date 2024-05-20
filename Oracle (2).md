@@ -1,4 +1,4 @@
-### Dosyaları çekelim
+### Dosyaları çekme işlemi yapalım
 ```
 cd $HOME
 rm -rf slinky
@@ -36,11 +36,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable slinkyd.service
 sudo systemctl restart slinkyd.service
 ```
-### Loglara bakmak isterseniz
+### Loglara bakalım
 ```
 journalctl -fu slinkyd --no-hostname
 ```
-### Yapılandıralım
+### Yapılandırma işlemini yapalım
 ```
 nano /root/.initia/config/app.toml
 ```
